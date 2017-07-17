@@ -14,9 +14,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
    
 public class ParseWord {  
     public static void main(String[] args) {  
-        readXml("D:/test.xlsx");  
+        readXml("E:/test/IPC.xlsx");  
         System.out.println("-------------");  
-        readXml("d:/test2.xls");  
     }  
     public static void readXml(String fileName){  
         boolean isE2007 = false;    //判断是否是excel2007格式  
@@ -30,34 +29,37 @@ public class ParseWord {
                 wb = new XSSFWorkbook(input);  
             else  
                 wb = new HSSFWorkbook(input);  
-            Sheet sheet = wb.getSheetAt(0);     //获得第一个表单  
-            Iterator<Row> rows = sheet.rowIterator(); //获得第一个表单的迭代器  
-            while (rows.hasNext()) {  
+            Sheet sheet = wb.getSheetAt(1);     //获得第一个表单  
+            
+            //定义每列的数据
+            String col01="";
+            String col02="";
+            String col03="";
+            String col04="";
+            String col05="";
+            
+            //Iterator<Row> rows = sheet.rowIterator(); //获得第一个表单的迭代器  
+            /*while (rows.hasNext()) {  
                 Row row = rows.next();  //获得行数据  
-                System.out.println("Row #" + row.getRowNum());  //获得行号从0开始  
+                //System.out.println("Row #" + row.getRowNum());  //获得行号从0开始  
                 Iterator<Cell> cells = row.cellIterator();    //获得第一行的迭代器  
                 while (cells.hasNext()) {  
                     Cell cell = cells.next();  
                     System.out.println("Cell #" + cell.getColumnIndex());  
-                    switch (cell.getCellType()) {   //根据cell中的类型来输出数据  
-                    case HSSFCell.CELL_TYPE_NUMERIC:  
-                        System.out.println(cell.getNumericCellValue());  
-                        break;  
-                    case HSSFCell.CELL_TYPE_STRING:  
-                        System.out.println(cell.getStringCellValue());  
-                        break;  
-                    case HSSFCell.CELL_TYPE_BOOLEAN:  
-                        System.out.println(cell.getBooleanCellValue());  
-                        break;  
-                    case HSSFCell.CELL_TYPE_FORMULA:  
-                        System.out.println(cell.getCellFormula());  
-                        break;  
-                    default:  
-                        System.out.println("unsuported sell type");  
-                    break;  
-                    }  
                 }  
-            }  
+            }  */
+            
+            GBCModel model = new GBCModel();
+            //获取行数
+            int rownumber = sheet.getLastRowNum();
+            for(int i =1;i<=rownumber;i++){
+            	Row row = sheet.getRow(i);
+            		System.out.println(row.getCell(0));
+            		//model.setGBC(gBC);
+            	}
+            
+            
+            wb.close();
         } catch (IOException ex) {  
             ex.printStackTrace();  
         }  
